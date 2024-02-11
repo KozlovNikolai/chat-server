@@ -2,10 +2,14 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/fatih/color"
+	"log"
 )
 
 func main() {
-	fmt.Println(color.GreenString("Hello, world!"))
+	//n, err := fmt.Println(color.GreenString("Hello, world!"))
+	n, err := fmt.Println("Hello, world!")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(n)
 }
