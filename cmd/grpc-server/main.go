@@ -48,7 +48,7 @@ func main() {
 	desc.RegisterChat_V1Server(s, &server{}) //регистрируем наши методы в grpc сервере
 	log.Printf("server listerning at %v", lis.Addr())
 
-	if err = s.Serve(lis); err != nil { //вызываем метод сервера Serve для начала работы grpc сервера "s" на порту "lis"
+	if err = s.Serve(lis); err != nil { //вызываем метод grpc сервера "s" - Serve, для начала работы на порту "lis"
 		log.Fatalf("failed to serv %v", err)
 	}
 
