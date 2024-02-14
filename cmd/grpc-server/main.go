@@ -19,19 +19,19 @@ type server struct { //структура которая через алиас "
 }
 
 // первый entrypoint (точка входа)
-func (s *server) Create(ctx context.Context, in *desc.CreateRequest) (*desc.CreateResponse, error) {
+func (s *server) Create(_ context.Context, in *desc.CreateRequest) (*desc.CreateResponse, error) {
 	log.Printf("Received Usernames: %#v\n", in.Usernames)          //выводим, что приняли
 	return &desc.CreateResponse{Id: int64(len(in.Usernames))}, nil //возвращаем количество элементов слайса (что бы нескучно было)
 }
 
 // второй entrypoint (точка входа)
-func (s *server) Delete(ctx context.Context, in *desc.DeleteRequest) (*empty.Empty, error) {
+func (s *server) Delete(_ context.Context, in *desc.DeleteRequest) (*empty.Empty, error) {
 	log.Printf("Received Id: %v\n", in.Id) //выводим, что приняли
 	return &empty.Empty{}, nil             //ничего не возвращаем
 }
 
 // третий entrypoint (точка входа)
-func (s *server) SendMessage(ctx context.Context, in *desc.SendMessageRequest) (*empty.Empty, error) {
+func (s *server) SendMessage(_ context.Context, in *desc.SendMessageRequest) (*empty.Empty, error) {
 	log.Printf("Received From: %v\n", in.From) //выводим, что приняли
 	log.Printf("Received Text: %v\n", in.Text)
 	log.Printf("Received Time: %v\n", in.Timestamp)
