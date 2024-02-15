@@ -12,30 +12,30 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-const grpcPort = 50051 //порт, который слушает grpc сервер
+const grpcPort = 50051
 
-type server struct { //структура которая через алиас "desc" имплементирует API (все методы) grpc сервера
+type server struct {
 	desc.UnimplementedChat_V1Server
 }
 
-// первый entrypoint (точка входа)
+// Create is receivig list of users, creating new chat and responsing ID of new chat
 func (s *server) Create(_ context.Context, in *desc.CreateRequest) (*desc.CreateResponse, error) {
-	log.Printf("Received Usernames: %#v\n", in.Usernames)          //выводим, что приняли
-	return &desc.CreateResponse{Id: int64(len(in.Usernames))}, nil //возвращаем количество элементов слайса (что бы нескучно было)
+	log.Printf("Received Usernames: %#v\n", in.Usernames)
+	return &desc.CreateResponse{Id: int64(len(in.Usernames))}, nil
 }
 
-// второй entrypoint (точка входа)
+// Delete is receiving ID of chat, deleting it, and nothing respons
 func (s *server) Delete(_ context.Context, in *desc.DeleteRequest) (*empty.Empty, error) {
-	log.Printf("Received Id: %v\n", in.Id) //выводим, что приняли
-	return &empty.Empty{}, nil             //ничего не возвращаем
+	log.Printf("Received Id: %v\n", in.Id)
+	return &empty.Empty{}, nil
 }
 
-// третий entrypoint (точка входа)
+// SendMessage is receiving Sender, His text and Timestamp, and nothing response
 func (s *server) SendMessage(_ context.Context, in *desc.SendMessageRequest) (*empty.Empty, error) {
-	log.Printf("Received From: %v\n", in.From) //выводим, что приняли
+	log.Printf("Received From: %v\n", in.From)
 	log.Printf("Received Text: %v\n", in.Text)
 	log.Printf("Received Time: %v\n", in.Timestamp)
-	return &empty.Empty{}, nil //ничего не возвращаем
+	return &empty.Empty{}, nil
 }
 
 func main() {
