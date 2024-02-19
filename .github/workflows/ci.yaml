@@ -13,7 +13,7 @@ env:
 
 jobs:
   image-build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-1.21.4
 
     steps:
       - name: Checkout master
@@ -32,7 +32,7 @@ jobs:
           docker buildx build --no-cache --push --tag $REGISTRY/$IMAGE_NAME:$TAG_NAME -f ./dockerfile .
 
   deploy-image:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-1.21.4
     needs: image-build-and-push
 
     steps:
