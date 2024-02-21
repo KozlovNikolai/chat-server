@@ -43,7 +43,7 @@ func main() {
 	if err != nil {                                             //проверяем, что порт открылся, иначе
 		log.Fatalf("failed to listen %v", err) //выводим в лог ошибку и закрываем программу
 	}
-	s := grpc.NewServer()                    //создаем grpc сервер
+	s := grpc.NewServer()                    //создаем  grpc сервер
 	reflection.Register(s)                   //включаем возможность сервера рассказать о своих методах клиенту
 	desc.RegisterChat_V1Server(s, &server{}) //регистрируем наши методы в grpc сервере
 	log.Printf("server listerning at %v", lis.Addr())
