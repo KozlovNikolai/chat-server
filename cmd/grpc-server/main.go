@@ -13,7 +13,6 @@ import (
 )
 
 const grpcPort = 50051
-const grpcPort2 = 50051
 
 type server struct {
 	desc.UnimplementedChat_V1Server
