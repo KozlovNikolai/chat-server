@@ -73,5 +73,5 @@ jobs:
             # Remove old container
             docker rm $CONTAINER_NAME
 
-            # Run a new container from a new image
-            docker run -d -p 50051:50051 --name $CONTAINER_NAME $REGISTRY/$IMAGE_NAME:$TAG_NAME
+            # Run a new container from  a new image
+            docker run -d -p 50062:50051 --name $CONTAINER_NAME $REGISTRY/$IMAGE_NAME:$TAG_NAME
