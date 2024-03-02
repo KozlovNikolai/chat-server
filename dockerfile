@@ -11,5 +11,7 @@ FROM alpine:latest
 
 WORKDIR /root/
 COPY --from=builder /github.com/KozlovNikolai/chat-server/source/bin/chat-server .
+COPY --from=builder /github.com/KozlovNikolai/chat-server/source/*.env .
+
 
 CMD ["./chat-server -config-path local.env"]
