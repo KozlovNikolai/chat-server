@@ -1,5 +1,5 @@
 #FROM golang:1.20.3-alpine AS builder
-FROM golang:1.21.4-alpine AS builder
+FROM golang:1.21.7-alpine AS builder
 
 COPY . /github.com/KozlovNikolai/chat-server/source/
 WORKDIR /github.com/KozlovNikolai/chat-server/source/
