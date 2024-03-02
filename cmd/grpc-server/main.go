@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"flag"
 	"log"
 	"net"
 
@@ -10,9 +10,19 @@ import (
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+
+	//"honnef.co/go/tools/config"
+	"github.com/KozlovNikolai/chat-server/internal/config"
+	"github.com/KozlovNikolai/chat-server/internal/config/env"
 )
 
-const grpcPort = 50051
+var configPath string
+
+func init() {
+	flag.StringVar(&configPath, "config-path", ".env", "path to config file")
+}
+
+//const grpcPort = 50051
 
 type server struct {
 	desc.UnimplementedChat_V1Server
@@ -39,8 +49,27 @@ func (s *server) SendMessage(_ context.Context, in *desc.SendMessageRequest) (*e
 }
 
 func main() {
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", grpcPort)) //открываем порт для прослушивания
-	if err != nil {                                             //проверяем, что порт открылся, иначе
+	flag.Parse()
+	//ctx := context.Background()
+
+	// Считываем переменные окружения
+	err := config.Load(configPath)
+	if err != nil {
+		log.Fatalf("failed to load config: %v", err)
+	}
+
+	grpcConfig, err := env.NewGRPCConfig()
+	if err != nil {
+		log.Fatalf("failed to get grpc config: %v", err)
+	}
+
+	// pgConfig, err := env.NewPGConfig()
+	// if err != nil {
+	// 	log.Fatalf("failed to get pg config: %v", err)
+	// }
+
+	lis, err := net.Listen("tcp", grpcConfig.Address()) //открываем порт для прослушивания
+	if err != nil {                                     //проверяем, что порт открылся, иначе
 		log.Fatalf("failed to listen %v", err) //выводим в лог ошибку и закрываем программу
 	}
 	s := grpc.NewServer()                    //создаем  grpc сервер
