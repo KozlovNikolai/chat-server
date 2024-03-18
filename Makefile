@@ -40,4 +40,10 @@ docker-build-and-push:
 run-into-server:
 	docker pull cr.selcloud.ru/msc/chat-server:v0.0.1
 	docker run -p 50051:50051 cr.selcloud.ru/msc/chat-server:v0.0.1
-	
+
+docker-local-build-and-run:
+	-docker stop chat
+	-docker rm chat
+	-docker rmi chat:v0.0.1
+	docker buildx build --no-cache --platform linux/amd64 -t chat:v0.0.1 .
+	docker run --name chat -p 50051:50051 chat:v0.0.1
